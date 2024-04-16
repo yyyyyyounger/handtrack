@@ -5,7 +5,7 @@ import time
 mode = "remote"  # local or remote
 LAN_IP = "0.0.0.0"
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../", static_url_path="")
 # CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"])
 CORS(app, origins="*", resources={r"/*": {"origins": "*"}})
 
@@ -53,6 +53,11 @@ if __name__ == "__main__":
         # 臨時SSL證書
         # app.run(host=LAN_IP, debug=True, port=5001, ssl_context="adhoc")
         # 本地自部署SSL證書
-        app.run(host=LAN_IP, debug=True, port=5001, ssl_context=("../cert.pem", "../key.pem"))
+        app.run(
+            host=LAN_IP,
+            debug=True,
+            port=5001,
+            ssl_context=("../cert.pem", "../key.pem"),
+        )
         # 無證書運行模式
         # app.run(host=LAN_IP, debug=True, port=5001)

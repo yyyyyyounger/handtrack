@@ -6,6 +6,8 @@ import { Camera } from "@mediapipe/camera_utils";
 import { drawConnectors, drawLandmarks, } from "@mediapipe/drawing_utils";
 import axios from "axios";
 
+const LOCAL_HOST = '127.0.0.1:5001';
+
 // 定义一个函数来模拟 math.degrees()
 function degrees(radians) {
   return radians * (180 / Math.PI);
@@ -144,7 +146,12 @@ function App() {
 
   useEffect(() => {
     const holistic = new Holistic({
-      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`
+      locateFile: (file) => {
+        // 網上版
+        // return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`
+        // 本地版
+        return `https://${LOCAL_HOST}/src/static/${file}`
+      }
     });
     const onResults = (res) => {
       if (!webcamRef.current?.video || !canvasRef.current) return
@@ -192,7 +199,7 @@ function App() {
               // 本地開發
               // let URL = `http://127.0.0.1:5001/do?pw=abcd1234&command=${humanCommand}`;
               // 遠端測試
-              let URL = `https://192.168.236.22:5001/do?pw=abcd1234&command=${humanCommand}`;
+              let URL = `https://${LOCAL_HOST}/do?pw=abcd1234&command=${humanCommand}`;
 
               // 通知機械臂執行
               // axios({ method: 'get', url: URL, })
