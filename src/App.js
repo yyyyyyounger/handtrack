@@ -6,7 +6,8 @@ import { Camera } from "@mediapipe/camera_utils";
 import { drawConnectors, drawLandmarks, } from "@mediapipe/drawing_utils";
 import axios from "axios";
 
-const LOCAL_HOST = '127.0.0.1:5001';
+const LOCAL_HOST = '192.168.1.11:5001';
+const REMOTE_HOST = '192.168.1.20:5001';
 
 // 定义一个函数来模拟 math.degrees()
 function degrees(radians) {
@@ -199,7 +200,7 @@ function App() {
               // 本地開發
               // let URL = `http://127.0.0.1:5001/do?pw=abcd1234&command=${humanCommand}`;
               // 遠端測試
-              let URL = `https://${LOCAL_HOST}/do?pw=abcd1234&command=${humanCommand}`;
+              let URL = `https://${REMOTE_HOST}/do?pw=abcd1234&command=${humanCommand}`;
 
               // 通知機械臂執行
               // axios({ method: 'get', url: URL, })
