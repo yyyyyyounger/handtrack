@@ -30,6 +30,7 @@ const commandMap = {
   4: '四號',
   5: '五號',
   6: '六號',
+  7: '七號',
 }
 
 function App() {
@@ -193,7 +194,7 @@ function App() {
         // 當前手勢與上次記錄的手勢不同
         if (rightPos != nowPos) {
           // 記錄的手勢是所需指令之一，當前是確認指令
-          if ((humanCommand == '1' || humanCommand == '2' || humanCommand == '3' || humanCommand == '4' || humanCommand == '5' || humanCommand == '6')
+          if ((humanCommand == '1' || humanCommand == '2' || humanCommand == '3' || humanCommand == '4' || humanCommand == '5' || humanCommand == '6' || humanCommand == '7')
             && nowPos == 'good') {
             rightCount = rightCount + 1;
             if (rightCount >= 20) {
