@@ -6,8 +6,10 @@ import { Camera } from "@mediapipe/camera_utils";
 import { drawConnectors, drawLandmarks, } from "@mediapipe/drawing_utils";
 import axios from "axios";
 
+// 電腦端Python API Server IP
 const LOCAL_HOST = '192.168.1.11:5001';
-const REMOTE_HOST = '192.168.1.20:5001';
+// 机械臂端Python API Server IP
+const REMOTE_HOST = '192.168.1.20:5002';
 
 // 定义一个函数来模拟 math.degrees()
 function degrees(radians) {

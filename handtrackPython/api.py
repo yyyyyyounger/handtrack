@@ -55,7 +55,8 @@ if __name__ == "__main__":
         # 本地自部署SSL證書
         app.run(
             host=LAN_IP,
-            debug=True,
+            # 設置為True時，首次運行會執行2次
+            debug=False,
             port=5001,
             ssl_context=("../cert.pem", "../key.pem"),
         )
