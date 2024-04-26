@@ -296,15 +296,11 @@ function App() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-screen p-5">
       <div>
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-
         <Webcam ref={webcamRef} style={{ width: '800px', }} hidden mirrored={true} />
 
-        <div className="m-5">
-          <p className="text-5xl font-bold">🦾 Smart Kitchen Assistant 🤳</p>
-        </div>
+        <p className="m-5 text-5xl font-bold">🦾 Smart Kitchen Assistant 🤳</p>
 
         <div className="m-5">
           {renderCommand == 'error' ? (<p className="text-3xl text-red-500 font-bold">Something Wrong!!!</p>) : (<>
@@ -321,7 +317,6 @@ function App() {
           }
         </div >
 
-        <div>
           <canvas
             ref={canvasRef}
             style={{
@@ -342,9 +337,14 @@ function App() {
               transform: `scaleX(-1)`,
             }}
           />
-        </div>
 
-        {/* <p style={{ zIndex: 999, position: 'absolute', right: 50, top: 50, }}>Hello World</p> */}
+        <p style={{ zIndex: 999, position: 'absolute', left: '5rem', bottom: '12rem', }}
+          className="text-sky-500"
+        >
+          {Object.keys(commandMap).map(idx => {
+            return <p>{commandMap[idx]}</p>
+          })}
+        </p>
       </div>
     </div >
   );
