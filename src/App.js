@@ -24,13 +24,13 @@ let rightPos = '';
 let humanCommand = null;
 
 const commandMap = {
-  1: '一號',
-  2: '二號',
-  3: '三號',
-  4: '四號',
-  5: '五號',
-  6: '六號',
-  7: '七號',
+  1: '1 - Left bottom shelf',
+  2: '2 - Left Second floor shelf',
+  3: '3 - Left Third floor shelf',
+  4: '4 - Right bottom shelf',
+  5: '5 - Right Second floor shelf',
+  6: '6 - Right Third floor shelf',
+  7: '7 - Start cooking',
 }
 
 function App() {
@@ -279,7 +279,6 @@ function App() {
     });
     holistic.onResults(onResults);
 
-
     if (typeof webcamRef.current !== "undefined" && webcamRef.current !== null) {
       if (!webcamRef.current.video) return
       const camera = new Camera(webcamRef.current.video, {
@@ -297,43 +296,56 @@ function App() {
   }, []);
 
   return (
-    <div style={{}}>
-
-      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-
-      <Webcam ref={webcamRef} style={{ width: '800px', }} hidden mirrored={true} />
-
-      <h1>手勢識別炒菜助手</h1>
-
-      <div style={{ display: 'flex' }}>
-        {renderCommand == 'error' ? (<p>{'出現錯誤!!!'}</p>) : (
-          <>
-            <p>{renderCommand ? commandMap[renderCommand] : '等候指令...'}</p>
-            {callState ? (<p>{'執行!'}</p>) : null}
-          </>)
-        }
-      </div >
-
+    <div className="flex items-center justify-center h-screen">
       <div>
-        <canvas
-          ref={canvasRef}
-          style={{
-            // position: "absolute",
-            // marginLeft: "auto",
-            // marginRight: "auto",
-            // left: 0,
-            // right: 0,
-            // textAlign: "center",
-            zIndex: 9,
-            // width: 1200,
-            // height: 800,
-            width: 800,
-            // height: 800,
-            transform: `scaleX(-1)`,
-          }}
-        />
-      </div>
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
+        <Webcam ref={webcamRef} style={{ width: '800px', }} hidden mirrored={true} />
+
+        <div className="m-5">
+          <p className="text-5xl font-bold">🦾 Smart Kitchen Assistant 🤳</p>
+        </div>
+
+        <div className="m-5">
+          {renderCommand == 'error' ? (<p className="text-3xl text-red-500 font-bold">Something Wrong!!!</p>) : (<>
+            <p className="text-3xl">{renderCommand ?
+              <p>
+                <span>Should Robot Go to </span>
+                <span className="text-blue-500 font-bold">{` ${commandMap[renderCommand]}`}</span>
+                <span> ?</span>
+                <p>Using 👍 Confirm!</p>
+              </p>
+              : 'Waiting for gesture 🫰 command...'}</p>
+            {callState ? (<p className="text-3xl text-green-500 font-bold">{'Starting!'}</p>) : null}
+          </>)
+          }
+        </div >
+
+        <div>
+          <canvas
+            ref={canvasRef}
+            style={{
+              // position: "absolute",
+              // marginLeft: "auto",
+              // marginRight: "auto",
+              // left: 0,
+              // right: 0,
+              // textAlign: "center",
+              zIndex: 9,
+              // width: 1200,
+              // height: 800,
+              height: window.screen.height * 0.6,
+              // 穩定版 無 height
+              // width: 800,
+              // width: document.body.clientWidth,
+              // height: 800,
+              transform: `scaleX(-1)`,
+            }}
+          />
+        </div>
+
+        {/* <p style={{ zIndex: 999, position: 'absolute', right: 50, top: 50, }}>Hello World</p> */}
+      </div>
     </div >
   );
 }
