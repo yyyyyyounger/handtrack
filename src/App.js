@@ -262,7 +262,7 @@ function App() {
       drawConnectors(canvasCtx, res.leftHandLandmarks, HAND_CONNECTIONS, { color: '#1565c0', lineWidth: 5 });
       drawLandmarks(canvasCtx, res.leftHandLandmarks, { color: '#00FF00', lineWidth: 2 });
       drawConnectors(canvasCtx, res.rightHandLandmarks, HAND_CONNECTIONS, { color: '#00CC00', lineWidth: 5 });
-      drawLandmarks(canvasCtx, res.rightHandLandmarks, { color: '#FF0000', lineWidth: 2 });
+      drawLandmarks(canvasCtx, res.rightHandLandmarks, { color: '#FF0000', lineWidth: 0.5 });
 
       canvasCtx.restore();
     }
@@ -281,12 +281,14 @@ function App() {
 
     if (typeof webcamRef.current !== "undefined" && webcamRef.current !== null) {
       if (!webcamRef.current.video) return
+      const { availWidth } = window.screen;
       const camera = new Camera(webcamRef.current.video, {
         onFrame: async () => {
           if (!webcamRef.current.video) return
           await holistic.send({ image: webcamRef.current.video });
         },
-        width: 640, height: 480,
+        width: (availWidth < 600 ? availWidth - 20 : 640),
+        height: (availWidth < 600 ? (availWidth - 20) * 0.75 : 480),
       });
 
       camera.start();
@@ -295,10 +297,11 @@ function App() {
     return () => { }
   }, []);
 
+  // This is not well supported  on Mobile Safari/iOS.
   return (
-    <div className="flex items-center justify-center h-screen p-5">
+    <div className="flex justify-center h-screen p-5">
       <div>
-        <Webcam ref={webcamRef} style={{ width: '800px', }} hidden mirrored={true} />
+        <Webcam ref={webcamRef} hidden mirrored={true} />
 
         <p className="m-5 text-5xl font-bold">🦾 Smart Kitchen Assistant 🤳</p>
 
@@ -317,26 +320,12 @@ function App() {
           }
         </div >
 
-          <canvas
-            ref={canvasRef}
-            style={{
-              // position: "absolute",
-              // marginLeft: "auto",
-              // marginRight: "auto",
-              // left: 0,
-              // right: 0,
-              // textAlign: "center",
-              zIndex: 9,
-              // width: 1200,
-              // height: 800,
-              height: window.screen.height * 0.6,
-              // 穩定版 無 height
-              // width: 800,
-              // width: document.body.clientWidth,
-              // height: 800,
-              transform: `scaleX(-1)`,
-            }}
-          />
+        <canvas
+          ref={canvasRef}
+          style={{
+            transform: `scaleX(-1)`,
+          }}
+        />
 
         <p style={{ zIndex: 999, position: 'absolute', left: '5rem', bottom: '12rem', }}
           className="text-sky-500"
