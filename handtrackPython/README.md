@@ -9,3 +9,7 @@
 
 ## 啟動
 使用 `python api.py` 啟動
+
+## 其他
+`./handTrackPython0412/` 為存檔文件夾
+`./robotVersion/` 為真實機械臂端使用的穩定版代碼
