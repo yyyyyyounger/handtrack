@@ -8,7 +8,8 @@
     使用 `pip install flask_cors`
 
 ## 啟動
-使用 `python api.py` 啟動
+1. 使用 `python api.py` 啟動
+2. 觀察控制台的輸出，會顯示當前機械臂在局域網內的IP，記錄這個IP填寫到前端服務器中。
 
 ## 其他
 `./handTrackPython0412/` 為存檔文件夾
